@@ -83,4 +83,4 @@ Configures SSlyze to use a client certificate in case the server performs mutual
 
 
 === Connections Timeout "--timeout=TIMEOUT"=== 
-Sets the timeout value in seconds used for every socket connection made to the target server(s). This is useful when the target server is too slow to respond. Default value is 5s. 
+Sets the timeout value in seconds used for every socket connection made to the target server(s). It forces SSLyze to wait more (or less) time for the target server to respond. Default value is 5s. 
