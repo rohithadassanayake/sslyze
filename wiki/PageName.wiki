@@ -9,7 +9,8 @@ Add your content here.
 Supported platforms are Windows 7 and Linux, both 32 and 64 bits. Mac OS X is not officially supported yet.
 
 == Linux ==
-Python 2.6 or 2.7 and OpenSSL 0.9.8+ is needed. [http://XXX.com Package is here].
+Python 2.6 or 2.7 and OpenSSL 0.9.8+ is needed. 
+ * [http://XXX.com Package is here].
 
 == Windows ==
 Only Python 2.6 or 2.7 is needed. The OpenSSL DLLs are part for the installation package.
