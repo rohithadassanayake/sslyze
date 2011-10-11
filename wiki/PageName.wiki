@@ -68,7 +68,7 @@ This option is useful when analyzing large scale websites. On such websites, one
 
 Consequently, it's valuable to estimate the rate at which succesful session resumptions actually happen, because while all the servers may have session resumption enabled, a misconfigured load balancer can ruin SSL performance.
 
-===Server Certificate Validation "--certinfo=basic"=== 
+===Server Certificate "--certinfo=basic"=== 
 Verifies the server's certificate validity against Mozilla's trusted root store, and prints relevant fields of the certificate.
 
 == Additional Options ==
