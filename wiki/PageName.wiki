@@ -13,18 +13,15 @@ Python 2.6 or 2.7 and OpenSSL 0.9.8 or 1.0.0 are needed. [http://XXX.com Package
 
 == Windows ==
 Only Python 2.6 or 2.7 is needed. The OpenSSL DLLs are part for the installation package.
- * [http://XXX.com one for Python 32 bits].
- * [http://XXX.com one for Python 64 bits].
+ * [http://XXX.com Package for Python 32 bits].
+ * [http://XXX.com one Package Python 64 bits].
 
 
 =Usage=
 
-This command line will start a "regular" scan, and that's what you'll want to use most of the time: 
  $ python main.py [options] www.target1.com www.target2.com:443 etc... 
 
-For now the tool will only print results of the scans it performed, and will not tell you if there are any security issues. So you have to know a bit about SSL in order to understand the results and know what to look for, but this manual will help you. 
-Let's see what those options mean and what to look for: 
-
+The following options are available:
 
 === Regular Scan "--regular" ===
 Performs a regular scan. It's a shortcut for "--sslv2 --sslv3 --tlsv1 --reneg --resum --certinfo=basic".
