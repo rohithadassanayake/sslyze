@@ -17,7 +17,7 @@ Python 2.6 or 2.7 and OpenSSL 0.9.8+ is needed.
  * [http://XXX.com Package is here].
 
 == Windows ==
-Only Python 2.6 or 2.7 is needed. The OpenSSL DLLs are part for the installation package.
+Only Python 2.6 or 2.7 is needed. OpenSSL 1.0.0c is part of the installation package.
  * [http://XXX.com Package for Python 32 bits].
  * [http://XXX.com Package for Python 64 bits].
 
