@@ -1,10 +1,12 @@
 #summary One-sentence summary of this page.
 
-<wiki:toc max_depth="4" />
-
 = Introduction =
 
 Add your content here.
+
+
+
+<wiki:toc max_depth="3" />
 
 
 =Installation=
@@ -25,6 +27,7 @@ SSLyze uses the following command line:
 
  $ python main.py [options] www.target1.com www.target2.com:443 etc... 
 
+== Options ==
 Several command line options are available:
 
 === Regular Scan "--regular" ===
