@@ -25,7 +25,7 @@ Only Python 2.6 or 2.7 is needed. The OpenSSL DLLs are part for the installation
 =Usage=
 SSLyze uses the following command line:
 
- $ python main.py {{{[options]}}} www.target1.com www.target2.com:443 etc... 
+ {{{ $ python main.py [options] www.target1.com www.target2.com:443 etc... }}}
 
 == Options ==
 Several command line options are available:
