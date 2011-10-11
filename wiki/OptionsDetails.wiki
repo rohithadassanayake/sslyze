@@ -1,4 +1,4 @@
-#summary Detailed explanation of each command line option.
+#summary Detailed explanations for each command line option.
 
 = Introduction =
 
