@@ -68,7 +68,7 @@ Verifies the server's certificate validity against Mozilla's trusted root store,
 == Additional Options ==
 
 === Client Certificate Support ===
-If the server requires mutual authentication, SSLyze can be configured to use a client certificate by specifying several options:
+Configures SSlyze to use a client certificate in case the server performs mutual authentication. The following options are required:
  * --cert=CERT           Client certificate filename.
  * --certform=CERTFORM   Client certificate format. DER or PEM (default).
  * --key=KEY             Client private key filename.
