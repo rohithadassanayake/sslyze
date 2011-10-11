@@ -77,4 +77,4 @@ If the server requires mutual authentication, SSLyze can be configured to use a 
 
 
 === Connections Timeout "--timeout=TIMEOUT"=== 
-The timeout value used for every socket connection made to the target server(s) can be controled. This is useful when the target server is too slow to respond. Default value is 5s. 
+Sets the timeout value used for every socket connection made to the target server(s). This is useful when the target server is too slow to respond. Default value is 5s. 
