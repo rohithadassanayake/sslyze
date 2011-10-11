@@ -6,12 +6,12 @@ Add your content here.
 
 
 =Installation=
-Supported platforms are Windows 7 and Linux, both 32 and 64 bits. MAC OS X is not officially supported yet.
+Supported platforms are Windows 7 and Linux, both 32 and 64 bits. Mac OS X is not officially supported yet.
 
-== Installation on Linux ==
+== Linux ==
 Python 2.6 or 2.7 and OpenSSL 0.9.8 or 1.0.0 are needed. [http://XXX.com Package is here].
 
-== Installation on Windows ==
+== Windows ==
 Only Python 2.6 or 2.7 is needed. The OpenSSL DLLs are part for the installation package.
  * [http://XXX.com one for Python 32 bits].
  * [http://XXX.com one for Python 64 bits].
