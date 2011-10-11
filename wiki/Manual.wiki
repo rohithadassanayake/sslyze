@@ -37,36 +37,16 @@ Performs a regular scan. It's a shortcut for "--sslv2 --sslv3 --tlsv1 --reneg --
 === OpenSSL Cipher Suites "--sslv2", "--sslv3", "--tlsv1"=== 
 Lists the SSL 2.0 / SSL 3.0 / TLS 1.0 OpenSSL cipher suites supported by the server. 
 
-Things to look for: 
- * Any cipher suite with SSL 2.0. SSL version 2 is completely broken. See http://www.schneier.com/paper-ssl-revised.pdf. 
- * Any cipher suite that has less than a 128 bit key length. 
- * Any anonymous cipher suite. They have 'ADH' in their name ("ADH-RC4-MD5" for example), which means Anonymous Diffie Hellman. When an anonymous cipher is chosen during the handshake, the server does not send back any certificate, but the handshake succeeds. No server authentication eliminates the security guarantees SSL/TLS is expected to provide. 
-
 
 ===Session Renegotiation "--reneg"===
 Checks whether the server is vulnerable to insecure renegotiation. 
 
-Session renegotiation is a mechanism within the SSL protocol that allows the client or the server to trigger the renewal of the crypto keys, during an ongoing SSL communication. 
-There's a protocol flaw in that mechanism that was found in 2009. This flaw allows a network attacker to inject data at the beginning of a SSL communication. For example the attacker can inject a HTTP request as if they were the victim. Impact solely depends on what the web application running on the server does, but regardless of that, it's a breach in the security SSL is expected to provide. 
-
-Renegotiation was initially designed for two scenarios. First, it can be used to increase the security of an ongoing SSL channel, by triggering the renewal of the crypto keys used to secure that channel. This security measure isn't necessary with modern cryptographic algorithms. Renegotiation can also be used when client authentication is enabled, so that the server can ask for a client certificate when the client tries to access protected ressources on the server.
-
-Insecure renegotiation can be fixed using one of the two following mitigations: 
- * Prevent the server from honoring client-intiated session renegotiations.
- * Update the SSL library used by the server to a recent version. A fix making session renegotiation secure was developed at the protocol level (RFC 5746), and was subsequently implemented in all of the mostly used SSL libraries.
-
 
 ===Session Resumption "--resum"=== 
 Tests the server for session resumption support, using both session IDs and TLS session tickets (RFC 5077). 
-Session resumption is a performance optimization that allows a client/server pair to re-use previously generated crypto material, so that they don't have to compute new crypto keys every time a connection gets established. Because it greatly reduces the overhead caused by SSL/TLS, it's a crucial server configuration to make SSL/TLS affordable. 
-
-If the domain being tested relies on a load balancer that dispatches incoming connections to multiple servers, "--resum_rate" should be used as well for a more accurate analysis.
 
 ===Session Resumption Rate "--resum_rate"=== 
 Estimates the average rate of successful session resumptions by performing 100 session resumptions. 
-This option is useful when analyzing large scale websites. On such websites, one single domain can be served by multiple servers, all sitting behind a load balancer that dispatches incoming connections to those servers, based on load balancing and policy rules. This causes issues for SSL session resumption because for a given client, only the server that did the initial handshake has the client's session ID and info cached. So if on its next connection, the client gets dispatched to a different server, the client's SSL session cannot be resumed because the new server doesn't know about it. 
-
-Consequently, it's valuable to estimate the rate at which succesful session resumptions actually happen, because while all the servers may have session resumption enabled, a misconfigured load balancer can ruin SSL performance.
 
 ===Server Certificate "--certinfo=basic"=== 
 Verifies the server's certificate validity against Mozilla's trusted root store, and prints relevant fields of the certificate.
