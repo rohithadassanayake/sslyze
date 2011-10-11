@@ -9,8 +9,8 @@ Add your content here.
 Testing was done 70% on Windows 7 (32 and 64 bits), 29% on Ubuntu 10.04 (32 and 64 bits) and 1% on Snow Leopard 32 bits... 
 
 Installation should be easy:
- * On Linux/Mac OS X: You need Python 2.6 or 2.7 and OpenSSL 0.9.8 or 1.0.0. [http://labs.isecpartners.com/alban/ssltool/SSLscan-v_0_2.zip Package is here].
- * On Windows: You only need Python 2.6 or 2.7, because I've created packages with the OpenSSL DLLs in them. So there are two Windows packages [http://labs.isecpartners.com/alban/ssltool/SSLscan-v_0_2-Win7-Python32.zip one for Python 32 bits] and [http://labs.isecpartners.com/alban/ssltool/SSLscan-v_0_2-Win7-Python64.zip one for Python 64 bits]. If you're on Win7 64 bits, you might still have installed Python 32 bits, so pay attention.
+ * On Linux/Mac OS X: You need Python 2.6 or 2.7 and OpenSSL 0.9.8 or 1.0.0. [http://XXX.com Package is here].
+ * On Windows: You only need Python 2.6 or 2.7, because I've created packages with the OpenSSL DLLs in them. So there are two Windows packages [http://XXX.com one for Python 32 bits] and [http://XXX.com one for Python 64 bits]. If you're on Win7 64 bits, you might still have installed Python 32 bits, so pay attention.
 
 
 
