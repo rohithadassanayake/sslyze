@@ -1,4 +1,4 @@
-#manual One-sentence summary of this page.
+#summary One-sentence summary of this page.
 
 = Introduction =
 
