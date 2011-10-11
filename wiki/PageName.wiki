@@ -68,12 +68,12 @@ Verifies the server's certificate validity against Mozilla's trusted root store,
 == Additional Options ==
 
 === Client Certificate Support ===
-If the server requires mutual authentication, SSLyze can be configured to use a client certificate using the following commands:
-  --cert=CERT           Client certificate filename.
-  --certform=CERTFORM   Client certificate format. DER or PEM (default).
-  --key=KEY             Client private key filename.
-  --keyform=KEYFORM     Client private key format. DER or PEM (default).
-  --pass=KEYPASS        Client private key passphrase.
+If the server requires mutual authentication, SSLyze can be configured to use a client certificate by specifying several options:
+ * --cert=CERT           Client certificate filename.
+ * --certform=CERTFORM   Client certificate format. DER or PEM (default).
+ * --key=KEY             Client private key filename.
+ * --keyform=KEYFORM     Client private key format. DER or PEM (default).
+ * --pass=KEYPASS        Client private key passphrase.
 
 
 === Connections Timeout "--timeout=TIMEOUT"=== 
