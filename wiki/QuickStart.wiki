@@ -1,4 +1,4 @@
-#summary Quick Start.
+#summary Quick Start
 
 = Introduction =
 
