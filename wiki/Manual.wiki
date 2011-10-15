@@ -57,7 +57,8 @@ Insecure renegotiation can be fixed using one of the two following mitigations:
 
 
 ===Session Resumption "--resum"=== 
-Tests the server for session resumption support, using both session IDs and TLS session tickets (RFC 5077). 
+Tests the server for session resumption support, using both session IDs and TLS session tickets (RFC 5077).
+ 
 Session resumption is a performance optimization that allows a client/server pair to re-use previously generated crypto material, so that they don't have to compute new crypto keys every time a connection gets established. Because it greatly reduces the overhead caused by SSL/TLS, it's a crucial server configuration in order to make SSL/TLS affordable. 
 
 If the domain being tested relies on a load balancer that dispatches incoming connections to multiple servers, "--resum_rate" should be used as well for a more accurate analysis.
