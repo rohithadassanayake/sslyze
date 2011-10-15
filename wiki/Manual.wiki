@@ -37,10 +37,10 @@ Performs a regular scan. It's a shortcut for "--sslv2 --sslv3 --tlsv1 --reneg --
 === OpenSSL Cipher Suites "--sslv2", "--sslv3", "--tlsv1"=== 
 Lists the SSL 2.0 / SSL 3.0 / TLS 1.0 OpenSSL cipher suites supported by the server. 
 
-Things to look for: 
- * Any cipher suite with SSL 2.0. SSL version 2 is completely broken. See http://www.schneier.com/paper-ssl-revised.pdf. 
- * Any cipher suite that has less than a 128 bit key length. 
- * Any anonymous cipher suite. They have 'ADH' in their name ("ADH-RC4-MD5" for example), which means Anonymous Diffie Hellman. When an anonymous cipher is chosen during the handshake, the server does not send back any certificate, but the handshake succeeds. No server authentication eliminates the security guarantees SSL/TLS is expected to provide. 
+Insecure cipher suites being enabled is a classic SSL misconfiguration. A properly hardened server should NOT accept the following:
+ * Any cipher suite that has a key size smaller than 128 bits.
+ * Any anonymous cipher suite, because they don't provide server authentication. SSLyze will flag them as "Anon".
+ * Any cipher suite that is part of the SSLv2 protocol, because the protocol itself is broken.
 
 
 ===Session Renegotiation "--reneg"===
