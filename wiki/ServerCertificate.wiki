@@ -15,6 +15,7 @@ http://sslyze.googlecode.com/svn/wiki/images/certinfo.png
 
 
 = Recommendations =
+ * The subject CN within the certificate should match the server's hostname.
  * The certificate should not be expired.
  * Key size should be 2048 bits or larger.
  * The signature algorithm should not be MD5 or MD2.
