@@ -1,0 +1,23 @@
+#summary Testing for weak cipher suites.
+
+= Description =
+
+Weak cipher suites
+
+
+= Detection = 
+
+Insecure cipher suites being enabled is a classic SSL misconfiguration. A properly hardened server should NOT accept the following: 
+ * Any cipher suite that has a key size smaller than 128 bits. 
+ * Any anonymous cipher suite, because they don't provide server authentication. SSLyze will flag them as "Anon"   
+ * Any cipher suite that is part of the SSLv2 protocol, because the protocol itself is broken.
+
+ {{{ $ python sslyze.py --sslv2 --sslv3 --tlsv1 www.server.com:443 }}}
+
+
+= Recommendations =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
