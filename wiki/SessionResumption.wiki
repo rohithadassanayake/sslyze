@@ -20,6 +20,8 @@ If the domain being tested relies on a load balancer that dispatches incoming co
 
 {{{ $ python sslyze.py --resum_rate www.server.com:443 }}}
 
+http://sslyze.googlecode.com/svn/wiki/images/resum_rate.png
+
 SSLyze will estimate the average rate of successful session resumptions by performing 100 session resumptions.
 
 This option is useful when analyzing large scale websites/domains, that rely on a load balancer and multiple servers, to handle a large number of simultaneous clients. In such configuration, incoming client connections are transparently dispatched by the load balancer to one of the servers. This can cause issues for the SSL session resumption mechanism, because for a given client, only the server that did the initial SSL handshake has the client's SSL session ID and info cached. So if on its next connection, the client gets dispatched to a different server, the client's SSL session cannot be resumed because the new server doesn't know about it. 
@@ -27,4 +29,3 @@ This option is useful when analyzing large scale websites/domains, that rely on 
 = Recommendations =
 
 For any session resumptions to actually happen, the load balancer has to be properly configured, and it's valuable to estimate the rate at which successful session resumptions happen. While all the servers may have session resumption enabled, a load balancer that has not been made aware of session resumption will ruin SSL performance.
-
