@@ -21,3 +21,9 @@ Here is a non exhaustive list of recommendations regarding the validity of the s
  * The certificate should not be expired.
  * Key size should be 2048 bits or larger.
  * The signature algorithm should not be MD5 or MD2.
+
+= Additional Options =
+ * {{{--certinfo=full}}} Prints the full certificate.
+ * {{{--certinfo=serial}}} Prints the serial number.
+ * {{{--certinfo=keysize}}} Prints the key size.
+ * {{{--certinfo=cn}}} Prints the Common Name field.
