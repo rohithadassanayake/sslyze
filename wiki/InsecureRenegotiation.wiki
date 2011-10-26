@@ -2,7 +2,7 @@
 
 = Usage =
 
-python sslyze --reneg www.server.com:443
+ {{{ $ python sslyze --reneg www.server.com:443 }}}
 
 
 = Description =
