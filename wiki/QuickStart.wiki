@@ -31,7 +31,7 @@ The following command line can be used:
 Several command line options are available:
 
 === Regular Scan "--regular" ===
-Performs a regular scan. It's a shortcut for {{{--sslv2 --sslv3 --tlsv1 --reneg --resum --certinfo=basic"}}}.
+Performs a regular scan. It's a shortcut for {{{--sslv2 --sslv3 --tlsv1 --reneg --resum --certinfo=basic}}}.
 
 
 === OpenSSL Cipher Suites "--sslv2", "--sslv3", "--tlsv1"=== 
