@@ -13,7 +13,7 @@ A server is vulnerable to insecure renegotiation if:
  * It honors client-initiated renegotiations.
  * It doesn't support secure renegotiations.
 
- {{{ $ python sslyze.py --reneg www.server.com:443 }}}
+{{{ $ python sslyze.py --reneg www.server.com:443 }}}
 
 http://sslyze.googlecode.com/svn/wiki/images/reneg_insecure.png
 
