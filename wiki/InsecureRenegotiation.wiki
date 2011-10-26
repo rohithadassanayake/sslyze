@@ -15,6 +15,8 @@ A server is vulnerable to insecure renegotiation if:
 
  {{{ $ python sslyze.py --reneg www.server.com:443 }}}
 
+http://sslyze.googlecode.com/svn/wiki/images/reneg_insecure.png
+
 = Recommendations =
 
 Insecure renegotiation can be fixed using one of the two following mitigations: 
