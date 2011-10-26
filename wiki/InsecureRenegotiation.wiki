@@ -1,9 +1,5 @@
 #summary Testing for insecure renegotiation
 
-= Usage =
-
-
-
 = Description =
 
 Session renegotiation is a mechanism within the SSL protocol that allows the client or the server to trigger the renewal of the crypto keys, during an ongoing SSL communication. There's a protocol flaw in that mechanism that was found in 2009. This flaw allows a network attacker to inject data at the beginning of a SSL communication. For example the attacker can inject a HTTP request as if they were the victim. Impact solely depends on what the web application running on the server does, but regardless of that, it's a breach in the security SSL is expected to provide. 
