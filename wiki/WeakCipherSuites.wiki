@@ -2,12 +2,13 @@
 
 = Description =
 
-Insecure cipher suites being enabled is a classic SSL misconfiguration. SSLyze can scan the server in order to detect which cipher suites it supports.
+Insecure cipher suites being enabled is a classic SSL misconfiguration. 
 
 The version 2 of SSL is a completely broken as a protocol, and allows for cryptographic downgrade attacks. 
 Within SSL 3 and TLS 1, weak cipher suites being enabled on the server could potentially allow attackers to easily brute-force the keys used to encrypt the SSL traffic between a client and the server, allowing them to subvert the confidentiality of the client’s session traffic. 
 
 = Detection = 
+SSLyze can scan the server in order to detect which cipher suites it supports within the SSL 2.0 , SSL 3.0 and TLS 1.0 protocols.
 
 {{{ $ python sslyze.py --sslv2 --sslv3 --tlsv1 www.server.com:443 }}}
 
