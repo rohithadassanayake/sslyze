@@ -1,13 +1,15 @@
 #summary Using SSLyze with a client certificate.
 
-= Introduction =
+= Description =
 
-Add your content here.
+SSLyze can be configured to authenticate to the server using a client certificate.
 
 
-= Details =
+= Usage =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+The following options are required:
+ * --cert=CERT           Client certificate filename.
+ * --certform=CERTFORM   Client certificate format. DER or PEM (default).
+ * --key=KEY             Client private key filename.
+ * --keyform=KEYFORM     Client private key format. DER or PEM (default).
+ * --pass=KEYPASS        Client private key passphrase.
