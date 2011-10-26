@@ -14,6 +14,10 @@ Insecure cipher suites being enabled is a classic SSL misconfiguration. A proper
 
 {{{ $ python sslyze.py --sslv2 --sslv3 --tlsv1 www.server.com:443 }}}
 
+http://sslyze.googlecode.com/svn/wiki/images/weakciphers.png
+
+http://sslyze.googlecode.com/svn/wiki/images/sslv2.png
+
 
 = Recommendations =
 
