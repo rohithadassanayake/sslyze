@@ -1,7 +1,7 @@
 #summary Checking the server certificate's validity.
 
 = Description =
-Invalid certificates 
+Invalid certificates can
 
 
 
@@ -13,4 +13,8 @@ SSLyze can verify the server's certificate validity against Mozilla's trusted ro
 
 http://sslyze.googlecode.com/svn/wiki/images/certinfo.png
 
+
 = Recommendations =
+ * The certificate should not be expired.
+ * Key size should be 2048 bits or larger.
+ * The signature algorithm should not be MD5 or MD2.
