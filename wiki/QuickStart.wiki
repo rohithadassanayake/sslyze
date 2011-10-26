@@ -25,13 +25,13 @@ Only Python 2.6 or 2.7 is needed. OpenSSL 1.0.0c is part of the installation pac
 =Usage=
 The following command line can be used:
 
- {{{ $ python main.py [options] www.target1.com www.target2.com:443 etc... }}}
+{{{ $ python main.py [options] www.target1.com www.target2.com:443 etc... }}}
 
 == Options ==
 Several command line options are available:
 
 === Regular Scan "--regular" ===
-Performs a regular scan. It's a shortcut for "--sslv2 --sslv3 --tlsv1 --reneg --resum --certinfo=basic".
+Performs a regular scan. It's a shortcut for {{{--sslv2 --sslv3 --tlsv1 --reneg --resum --certinfo=basic"}}}.
 
 
 === OpenSSL Cipher Suites "--sslv2", "--sslv3", "--tlsv1"=== 
