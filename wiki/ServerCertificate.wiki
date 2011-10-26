@@ -2,7 +2,8 @@
 
 = Description =
 
-Add your content here.
+Verifies the server's certificate validity against Mozilla's trusted root store, and prints relevant fields of the certificate.
+
 
 
 = Details =
