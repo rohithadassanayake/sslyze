@@ -10,7 +10,7 @@ For more information about renegotiation, see InsecureRenegotiation.
 
 The current version of THC's SSL DOS tool requires the server to honor client-initiated renegotiations in order to work.
 
- {{{ $ python sslyze.py --reneg www.server.com:443 }}}
+{{{ $ python sslyze.py --reneg www.server.com:443 }}}
 
 http://sslyze.googlecode.com/svn/wiki/images/reneg_thc.png
 
