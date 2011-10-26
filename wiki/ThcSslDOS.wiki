@@ -1,7 +1,8 @@
 #summary Testing for susceptibility to THC's SSL DOS attack.
 
 = Description =
-THC has released a DOS tool that exploits SSL renegotiation to perform a denial of service on a given SSL server. See http://www.thc.org/thc-ssl-dos/
+THC has released a DOS tool that exploits SSL renegotiation to perform a denial of service on a given SSL server. See http://www.thc.org/thc-ssl-dos/ .
+For more information about renegotiation, see InsecureRenegotiation.
 
 
 
