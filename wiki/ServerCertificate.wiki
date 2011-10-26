@@ -1,8 +1,8 @@
 #summary Checking the server certificate's validity.
 
 = Description =
-For a given server, the SSL certificate is uses can be invalid for various reasons. An invalid certificate greatly threatens the security of any SSL connection to the server, because the server is not properly authenticated. 
-For example, when the client is a browser, an invalid certificate usually triggers a security warning in the browser, and that forces the user to accept the warning in order to connect to the server. This means that a network attacker could easily masquerade as the server and prompt its own, invalid certificate to the client, which would prompt the same warning making it difficult for the user to know that they're under attack. 
+For a given server, the SSL certificate it uses can be invalid for various reasons. An invalid certificate greatly threatens the security of any SSL connection to the server, because the server is not properly authenticated. 
+For example, when the client is a browser, an invalid certificate usually triggers a security warning in the browser, and that forces the user to accept the warning in order to actually connect to the server. This means that a network attacker could easily masquerade as the server and prompt its own, invalid certificate to the client, which would prompt the same warning, making it difficult for the user to know that they're under attack. 
 
 
 
