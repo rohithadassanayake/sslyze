@@ -17,4 +17,4 @@ http://sslyze.googlecode.com/svn/wiki/images/reneg_thc.png
 A migitation against THC's SSL DOS tool is to prevent the server from honoring client-initiated renegotiations.
 As explained on their website, "The tool can be modified to work
 without SSL-RENEGOTIATION by just establishing a new TCP connection for every
-new handshake.".
+new handshake".
