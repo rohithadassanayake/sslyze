@@ -2,12 +2,14 @@
 
 = Description =
 
-OpenSSL Weak cipher suites
+Insecure cipher suites being enabled is a classic SSL misconfiguration. SSLyze can scan the server in order to detect which cipher suites it supports.
 
+The version 2 of SSL is a completely broken as a protocol, and allows for cryptographic downgrade attacks. 
+Within SSL 3 and TLS 1, weak cipher suites being enabled on the server could potentially allow attackers to easily brute-force the keys used to encrypt the SSL traffic between a client and the server, allowing them to subvert the confidentiality of the client’s session traffic. 
 
 = Detection = 
 
-Insecure cipher suites being enabled is a classic SSL misconfiguration. A properly hardened server should NOT accept the following: 
+A properly hardened server should NOT accept the following: 
  * Any cipher suite that has a key size smaller than 128 bits. 
  * Any anonymous cipher suite, because they don't provide server authentication. SSLyze will flag them as "Anon".
  * Any cipher suite that is part of the SSLv2 protocol, because the protocol itself is broken.
