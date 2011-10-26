@@ -2,7 +2,6 @@
 
 = Usage =
 
- {{{ $ python sslyze --reneg www.server.com:443 }}}
 
 
 = Description =
@@ -10,6 +9,13 @@
 Session renegotiation is a mechanism within the SSL protocol that allows the client or the server to trigger the renewal of the crypto keys, during an ongoing SSL communication. There's a protocol flaw in that mechanism that was found in 2009. This flaw allows a network attacker to inject data at the beginning of a SSL communication. For example the attacker can inject a HTTP request as if they were the victim. Impact solely depends on what the web application running on the server does, but regardless of that, it's a breach in the security SSL is expected to provide. 
 
 Renegotiation was initially designed for two scenarios. First, it can be used to increase the security of an ongoing SSL channel, by triggering the renewal of the crypto keys used to secure that channel. This security measure isn't necessary with modern cryptographic algorithms. Renegotiation can also be used when client authentication is enabled, so that the server can ask for a client certificate when the client tries to access protected ressources on the server. 
+
+= Detection = 
+ {{{ $ python sslyze --reneg www.server.com:443 }}}
+
+A server is vulnerable to insecure renegotiation if:
+ * It honors client-initiated renegotiations.
+ * It doesn't support secure renegotiations.
 
 = Recommendations =
 
