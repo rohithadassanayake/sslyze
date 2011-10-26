@@ -3,9 +3,8 @@
 = Description =
 
 Insecure cipher suites being enabled on the server is a classic SSL misconfiguration. 
-
-The version 2 of SSL is a completely broken as a protocol, and allows for cryptographic downgrade attacks. 
-Within SSL 3 and TLS 1, weak cipher suites being enabled on the server could potentially allow attackers to easily brute-force the keys used to encrypt the SSL traffic between a client and the server, allowing them to subvert the confidentiality of the client’s session traffic. 
+Because the crypto algorithms used with those cipher suites are weak, if those cipher suites were to be negotiated between a client and the server, an attacker could brute force the keys used to encrypt the SSL traffic.
+Additionally, SSLv2 itself is broken as a protocol, and allows for cryptographic downgrade attacks. 
 
 = Detection = 
 SSLyze can scan the server in order to detect which cipher suites it supports within the SSL 2.0 , SSL 3.0 and TLS 1.0 protocols.
