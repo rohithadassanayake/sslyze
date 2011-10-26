@@ -1,15 +1,20 @@
 #summary Testing for susceptibility to THC's SSL DOS attack.
 
 = Description =
-http://www.thc.org/thc-ssl-dos/
-Add your content here.
+THC has released a DOS tool that exploits SSL renegotiation to perform a denial of service on a given SSL server. See http://www.thc.org/thc-ssl-dos/
+
 
 
 = Detection =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+The current version of THC's SSL DOS tool requires the server to honor client-initiated renegotiations in order to work.
+
+ {{{ $ python sslyze.py --reneg www.server.com:443 }}}
+
+http://sslyze.googlecode.com/svn/wiki/images/reneg_thc.png
 
 = Recommandation =
+A migitation against THC's SSL DOS tool is to prevent the server from honoring client-initiated renegotiations.
+As explained on their website, "The tool can be modified to work
+without SSL-RENEGOTIATION by just establishing a new TCP connection for every
+new handshake.".
