@@ -9,7 +9,7 @@ Invalid certificates
 
 SSLyze can verify the server's certificate validity against Mozilla's trusted root store, and print relevant fields of the certificate.
 
-{{{python sslyze.py --certinfo=basic www.server.com:443}}}
+{{{$ python sslyze.py --certinfo=basic www.server.com:443}}}
 
 
 = Recommendations =
