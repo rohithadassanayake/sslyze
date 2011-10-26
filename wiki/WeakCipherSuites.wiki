@@ -2,7 +2,7 @@
 
 = Description =
 
-Weak cipher suites
+OpenSSL Weak cipher suites
 
 
 = Detection = 
@@ -21,7 +21,4 @@ http://sslyze.googlecode.com/svn/wiki/images/sslv2.png
 
 = Recommendations =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Disable SSLv2, cipher suites with a key size smaller than 128 bits, and anonymous cipher suites.
