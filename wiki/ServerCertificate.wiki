@@ -1,14 +1,15 @@
 #summary Checking the server certificate's validity.
 
 = Description =
-
-Verifies the server's certificate validity against Mozilla's trusted root store, and prints relevant fields of the certificate.
-
+Invalid certificates 
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= Detection =
+
+SSLyze can verify the server's certificate validity against Mozilla's trusted root store, and print relevant fields of the certificate.
+
+{{{python sslyze.py --certinfo=basic www.server.com:443}}}
+
+
+= Recommendations =
