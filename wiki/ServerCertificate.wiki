@@ -15,7 +15,7 @@ http://sslyze.googlecode.com/svn/wiki/images/certinfo.png
 
 
 = Recommendations =
-Here is a non exhaustive list of recommendations regarding the validity of the server's certificate.
+Here is a non exhaustive list of recommendations regarding the validity of the server's certificate:
  * The subject CN within the certificate should match the server's hostname.
  * The certificate should not be expired.
  * Key size should be 2048 bits or larger.
