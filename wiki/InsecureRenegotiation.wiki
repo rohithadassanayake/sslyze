@@ -1,4 +1,4 @@
-#summary Testing for insecure renegotiation
+#summary Testing for insecure renegotiation.
 
 = Description =
 
