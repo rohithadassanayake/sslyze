@@ -2,7 +2,7 @@
 
 = Description =
 
-Session renegotiation is a mechanism within the SSL protocol that allows the client or the server to trigger the renewal of the crypto keys, during an ongoing SSL communication. 
+Session renegotiation is a mechanism within the SSL protocol that allows the client or the server to trigger a new SSL handshake during an ongoing SSL communication. 
 Renegotiation was initially designed as a mechanism to increase the security of an ongoing SSL channel, by triggering the renewal of the crypto keys used to secure that channel. This security measure isn't needed with modern cryptographic algorithms. Alternatively, renegotiation can be used by a server to request a client certificate (to perform client authentication), when the client tries to access specific, protected resources on the server. 
 
 
