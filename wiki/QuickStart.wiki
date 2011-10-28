@@ -25,7 +25,7 @@ The following command line should be used:
 {{{ $ python main.py [options] www.target1.com www.target2.com:443 etc... }}}
 
 == Options ==
-Several command line options are available. See other articles within the wiki for more details regarding each options.
+Several command line options are available. See the other articles within the wiki for more details regarding each options.
 
 === Regular Scan "--regular" ===
 Performs a regular scan. It's a shortcut for {{{--sslv2 --sslv3 --tlsv1 --reneg --resum --certinfo=basic}}}.
