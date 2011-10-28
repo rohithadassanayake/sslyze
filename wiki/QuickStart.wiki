@@ -14,12 +14,11 @@ Supported platforms are Windows 7 and Linux, both 32 and 64 bits. Mac OS X is no
 
 == Linux ==
 Python 2.6 or 2.7 and OpenSSL 0.9.8+ is needed. 
- * [http://XXX.com Package is here].
+ * [http://code.google.com/p/sslyze/downloads/list Package is here].
 
 == Windows ==
-Only Python 2.6 or 2.7 is needed. OpenSSL 1.0.0c is part of the installation package.
- * [http://XXX.com Package for Python 32 bits].
- * [http://XXX.com Package for Python 64 bits].
+Only Python 2.6 or 2.7 is needed. OpenSSL 1.0.0c is part of the installation package. There is one package for Python 32 bits, and one for Python 64 bits.
+ * [http://code.google.com/p/sslyze/downloads/list Packages are here].
 
 
 =Usage=
