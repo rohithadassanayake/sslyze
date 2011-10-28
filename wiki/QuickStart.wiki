@@ -1,10 +1,5 @@
 #summary START HERE
 
-= Introduction =
-
-Add your content here.
-
-
 
 <wiki:toc max_depth="3" />
 
