@@ -15,7 +15,7 @@ The current version of THC's SSL DOS tool requires the server to honor client-in
 http://sslyze.googlecode.com/svn/wiki/images/reneg_thc.png
 
 = Recommendation =
-A mitigation against THC's SSL DOS tool is to prevent the server from honoring client-initiated renegotiations.
-As explained on their website, "The tool can be modified to work
+A mitigation against the current version of THC's SSL DOS tool is to prevent the server from honoring client-initiated renegotiations.
+However, as explained on their website, "The tool can be modified to work
 without SSL-RENEGOTIATION by just establishing a new TCP connection for every
 new handshake".
