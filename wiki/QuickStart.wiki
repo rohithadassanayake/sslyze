@@ -13,20 +13,24 @@ Add your content here.
 Supported platforms are Windows 7 and Linux, both 32 and 64 bits. Other platforms (including Mac OS X) are not officially supported yet, but SSLyze might work if you're lucky.
 
 == Linux ==
-Prerequisites: Python 2.6 or 2.7 and OpenSSL 0.9.8+. [http://code.google.com/p/sslyze/downloads/list Package is here].
+Prerequisites: Python 2.6 or 2.7 and OpenSSL 0.9.8+. 
+
+[http://code.google.com/p/sslyze/downloads/list Package is here].
 
 
 == Windows ==
-Prerequisites: Python 2.6 or 2.7. OpenSSL 1.0.0c is part of the installation package. There is one package for Python 32 bits, and one for Python 64 bits. [http://code.google.com/p/sslyze/downloads/list Packages are here].
+Prerequisites: Python 2.6 or 2.7. OpenSSL 1.0.0c is part of the installation package. There is one package for Python 32 bits, and one for Python 64 bits. 
+
+[http://code.google.com/p/sslyze/downloads/list Packages are here].
 
 
 =Usage=
-The following command line can be used:
+The following command line should be used:
 
 {{{ $ python main.py [options] www.target1.com www.target2.com:443 etc... }}}
 
 == Options ==
-Several command line options are available:
+Several command line options are available. See other articles within the wiki for more details regarding each options.
 
 === Regular Scan "--regular" ===
 Performs a regular scan. It's a shortcut for {{{--sslv2 --sslv3 --tlsv1 --reneg --resum --certinfo=basic}}}.
