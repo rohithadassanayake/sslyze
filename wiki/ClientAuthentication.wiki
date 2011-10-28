@@ -2,7 +2,7 @@
 
 = Description =
 
-SSLyze can be configured to authenticate to the server using a client certificate.
+SSLyze can be configured to authenticate to the server using a client certificate. The command line is similar to OpenSSL's s_client.
 
 
 = Usage =
