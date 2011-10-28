@@ -12,7 +12,7 @@ SSLyze can test the server for session resumption support, using both session ID
 http://sslyze.googlecode.com/svn/wiki/images/resum.png
 
 = Recommendations =
-While not a security concern, session resumption should be enabled because it's a huge performance optimization. 
+While not a security concern, session resumption should be enabled because of the huge performance optimization it provides. 
 
 = Detection when there is a load balancer = 
 
