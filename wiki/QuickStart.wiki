@@ -27,12 +27,11 @@ The following command line should be used:
 
 Several command line options are available. See the other articles within the wiki for more details regarding each options.
 
-== Shortcut ==
-=== Regular Scan "--regular" ===
-Performs a regular scan. It's a shortcut for {{{--sslv2 --sslv3 --tlsv1 --reneg --resum --certinfo=basic}}}.
-
 
 == Options ==
+
+=== Regular Scan "--regular" ===
+Performs a regular scan. It's a shortcut for {{{--sslv2 --sslv3 --tlsv1 --reneg --resum --certinfo=basic}}}.
 
 === OpenSSL Cipher Suites "--sslv2", "--sslv3", "--tlsv1"=== 
 Lists the SSL 2.0 / SSL 3.0 / TLS 1.0 OpenSSL cipher suites supported by the server. 
