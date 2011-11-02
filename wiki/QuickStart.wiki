@@ -22,7 +22,7 @@ Prerequisites: Python 2.6 or 2.7. OpenSSL 1.0.0c is part of the installation pac
 =Usage=
 The following command line should be used:
 
-{{{ $ python main.py [options] www.target1.com www.target2.com:443 etc... }}}
+{{{ $ python sslyze.py [options] www.target1.com www.target2.com:443 etc... }}}
 
 
 Several command line options are available. See the other articles within the wiki for more details regarding each options.
