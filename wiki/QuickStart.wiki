@@ -2,7 +2,6 @@
 
 <wiki:toc max_depth="3" />
 
-
 =Installation=
 Supported platforms are Windows 7 and Linux, both 32 and 64 bits. 
 
