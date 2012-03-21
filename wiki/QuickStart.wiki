@@ -35,6 +35,9 @@ This is what you'll want to use most of the time. It performs a regular HTTP sca
 === OpenSSL Cipher Suites=== 
   * *{{{--sslv2 --sslv3 --tlsv1}}}*  : Lists the SSL 2.0, 3.0 and TLS 1.0 OpenSSL cipher suites supported by the server. 
   * *{{{--tlsv1_1 --tlsv1_2}}}*  : Lists the TLS 1.1 and 1.2 OpenSSL cipher suites supported by the server. Requires OpenSSL 1.0.1 or later.
+  * *{{{--http_get}}}*  : Option - For each cipher suite, sends an HTTP GET request after completing the SSL handshake and returns the HTTP status code.
+  * *{{{--hide_rejected_ciphers}}}*  : Option - Hides the (usually long) list of cipher suites that were rejected by the server.
+
 
 ===Session Renegotiation===
   * *{{{--reneg}}}*   : Checks whether the server is vulnerable to insecure renegotiation. Requires OpenSSL 0.9.8m or later.
