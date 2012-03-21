@@ -12,7 +12,7 @@ SSLyze can test the server for session resumption support, using both session ID
 http://sslyze.googlecode.com/svn/wiki/images/resum.png
 
 = Recommendations =
-While not a security concern, session resumption should be enabled because of the huge performance optimization it provides. 
+While not a security concern, session resumption should be enabled because of the notable performance optimization it provides. 
 
 = Detection when there is a load balancer = 
 
@@ -24,7 +24,7 @@ http://sslyze.googlecode.com/svn/wiki/images/resum_rate.png
 
 SSLyze will estimate the average rate of successful session resumptions by performing 100 session resumptions.
 
-On large scale websites/domains, a common configuration is to have a load balancer that transparently dispatches incoming client connections to the single domain, to one of the multiple "backend" servers. This can cause issues for the SSL session resumption mechanism, because for a given client, only the server that did the initial SSL handshake has the client's SSL session ID and info cached. So if on its next connection, the client gets dispatched to a different server, the client's SSL session cannot be resumed because the new server doesn't know about it. 
+On large scale websites/domains, a common configuration is to have a load balancer that transparently dispatches incoming client connections to the single domain, to one of the multiple "backend" servers. This can disrupt SSL session resumption because for a given client, only the server that did the initial SSL handshake has the client's SSL session ID and info cached. So if on its next connection, the client gets dispatched to a different server, the client's SSL session cannot be resumed because the new server doesn't know about it. 
 
 = Recommendations when there is a load balancer =
 
