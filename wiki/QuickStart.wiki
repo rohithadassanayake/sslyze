@@ -55,8 +55,8 @@ This is what you'll want to use most of the time. It performs a regular HTTP sca
 == Additional Options ==
 
 === StartTLS Support=== 
-  * *{{{--starttls=STARTTLS}}}*   : Identifies the target server(s) as a SMTP or an XMPP server(s) and scans the server(s) using StartTLS. STARTTLS should be 'smtp' or 'xmpp'.
-  * *{{{--xmpp_to}}}*   :  Optional setting for STARTTLS XMPP.  XMPP_TO should be the hostname to be put in the 'to' attribute of the XMPP stream. Default is the server's hostname.
+  * *{{{--starttls=STARTTLS}}}*   : Identifies the target server(s) as a SMTP or an XMPP server(s) and scans the server(s) using StartTLS. {{{STARTTLS}}} should be 'smtp' or 'xmpp'.
+  * *{{{--xmpp_to}}}*   :  Optional setting for STARTTLS XMPP.  {{{XMPP_TO}}} should be the hostname to be put in the 'to' attribute of the XMPP stream. Default is the server's hostname.
 
 === Client Certificate Support ===
 Configures SSlyze to use a client certificate in case the server performs mutual authentication. The following options are required:
@@ -67,7 +67,7 @@ Configures SSlyze to use a client certificate in case the server performs mutual
  * *{{{--pass=KEYPASS}}}*   : Client private key passphrase.
 
 === HTTPS Proxy Support=== 
-  * *{{{--https_tunnel=HTTPS_TUNNEL}}}*   : Sets an HTTP CONNECT proxy to tunnel SSL traffic to the target server(s). HTTP_TUNNEL should be 'host:port'. Requires Python 2.7
+  * *{{{--https_tunnel=HTTPS_TUNNEL}}}*   : Sets an HTTP CONNECT proxy to tunnel SSL traffic to the target server(s). {{{HTTP_TUNNEL}}} should be 'host:port'. Requires Python 2.7
 
 
 === Connections Timeout=== 
