@@ -5,7 +5,7 @@
 #
 # Author:       aaron, alban
 #
-# Copyright:    2011 SSLyze developers (http://code.google.com/sslyze)
+# Copyright:    2012 SSLyze developers
 #
 #   SSLyze is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ SSLYZE_VERSION =      'SSLyze v0.5 beta'
 DEFAULT_NB_PROCESSES =      5 # 10 was too aggressive, lowering it to 5
 PLUGIN_PATH =       "plugins"
 DEFAULT_TIMEOUT =   5
+PROJECT_URL = "https://github.com/nabla-c0d3/sslyze"
 
 # Todo: Move formatting stuff to another file
 SCAN_FORMAT = 'Scan Results For {0}:{1} - {2}:{1}'
@@ -227,9 +228,9 @@ def main():
     
     # Output XML doc to a file if needed
     if shared_settings['xml_file']:
-        result_xml_attr = {'https-tunnel':str(shared_settings['https_tunnel_host']),
-                           'scan-time' : str(exec_time), 
-                           'timeout' : str(shared_settings['timeout']), 
+        result_xml_attr = {'HTTPSTunnel':str(shared_settings['https_tunnel_host']),
+                           'totalScanTime' : str(exec_time), 
+                           'defaultTimeout' : str(shared_settings['timeout']), 
                            'startTLS' : str(shared_settings['starttls'])}
         
         result_xml = Element('results', attrib = result_xml_attr)
@@ -239,7 +240,7 @@ def main():
             
         xml_final_doc = Element('document', title = "SSLyze Results",
                                 version = SSLYZE_VERSION, 
-                                web = "http://code.google.com/p/sslyze")
+                                web = PROJECT_URL)
         xml_final_doc.append(result_xml)
     
         xml_final_tree = ElementTree(xml_final_doc)

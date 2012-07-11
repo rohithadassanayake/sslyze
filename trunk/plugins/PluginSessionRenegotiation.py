@@ -5,7 +5,7 @@
 #
 # Author:       alban
 #
-# Copyright:    2011 SSLyze developers (http://code.google.com/sslyze)
+# Copyright:    2012 SSLyze developers
 #
 #   SSLyze is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -61,9 +61,9 @@ class PluginSessionRenegotiation(PluginBase.PluginBase):
         txt_result.append(RENEG_FORMAT.format('Secure Renegotiation: ', secure_txt))
         
         # XML output
-        xml_reneg_attr = {'client-initiated' : str(can_reneg),
+        xml_reneg_attr = {'canBeClientInitiated' : str(can_reneg),
                           'secure' : str(is_secure)}
-        xml_reneg = Element('reneg', attrib = xml_reneg_attr)
+        xml_reneg = Element('sessionRenegotiation', attrib = xml_reneg_attr)
         
         xml_result = Element(self.__class__.__name__, command = command,
                              title = cmd_title)
