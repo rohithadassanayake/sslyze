@@ -26,9 +26,9 @@ from multiprocessing import Process, JoinableQueue
 import sys
 from xml.etree.ElementTree import ElementTree, Element
 
-from discover_targets import discover_targets
-from discover_plugins import discover_plugins
-from parse_command_line import create_command_line_parser, \
+from utils.discover_targets import discover_targets
+from utils.discover_plugins import discover_plugins
+from utils.parse_command_line import create_command_line_parser, \
     parse_command_line, process_parsing_results, PARSING_ERROR_FORMAT
 
 
@@ -37,7 +37,7 @@ SSLYZE_VERSION =      'SSLyze v0.5 beta'
 DEFAULT_NB_PROCESSES =      5 # 10 was too aggressive, lowering it to 5
 PLUGIN_PATH =       "plugins"
 DEFAULT_TIMEOUT =   5
-PROJECT_URL = "https://github.com/nabla-c0d3/sslyze"
+PROJECT_URL = "https://github.com/isecPartners/sslyze"
 
 # Todo: Move formatting stuff to another file
 SCAN_FORMAT = 'Scan Results For {0}:{1} - {2}:{1}'
