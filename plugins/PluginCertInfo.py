@@ -25,15 +25,18 @@
 
 import os
 import sys
+import re
 from xml.etree.ElementTree import Element
 
 from plugins import PluginBase
-from utils.ctSSL import ctSSL_initialize, ctSSL_cleanup, constants, errors
+from utils.ctSSL import ctSSL_initialize, ctSSL_cleanup, constants, errors, \
+    X509_V_CODES, SSL_CTX
 
 TRUSTED_CA_STORE = os.path.join(sys.path[0], 'mozilla_cacert.pem')
 from mozilla_ev_oids import mozilla_EV_OIDs
 
 class X509CertificateHelper:
+    # TODO: Move this somewhere else
     """
     Helper functions for X509 certificate parsing and XML serialization.
     """
@@ -66,9 +69,9 @@ class X509CertificateHelper:
         cert_xml = []
         
         for (key, value) in cert_dict.items():
-            for xml_elem in self._keyvalue_pair_to_xml(key,value):
+            for xml_elem in self._keyvalue_pair_to_xml(key, value):
                 cert_xml.append(xml_elem)
-            
+ 
         return cert_xml
 
 
@@ -96,10 +99,12 @@ class X509CertificateHelper:
             for val in value:
                 res_xml.append(self._create_xml_node(key, val))
            
-        else: # value is a list of subnodes
+        elif type(value) is dict: # value is a list of subnodes
             key_xml = self._create_xml_node(key)
-            for subdata in value.items():
-                key_xml.append(self._keyvalue_pair_to_xml(*subdata)[0])
+            for subkey in value.keys():
+                for subxml in self._keyvalue_pair_to_xml(subkey, value[subkey]):
+                    key_xml.append(subxml)
+                 
             res_xml.append(key_xml)
             
         return res_xml    
@@ -133,8 +138,15 @@ class X509CertificateHelper:
             auth_entry_res = []
             auth_entry = auth_entry.split(' - ')
             entry_name = auth_entry[0].replace(' ', '')
+
+            if not auth_ext_list.has_key(entry_name):
+                auth_ext_list[entry_name] = {}
+            
             entry_data = auth_entry[1].split(':', 1)
-            auth_ext_list[entry_name] = {entry_data[0]: entry_data[1]}
+            if auth_ext_list[entry_name].has_key(entry_data[0]):
+                auth_ext_list[entry_name][entry_data[0]].append(entry_data[1])
+            else:
+                auth_ext_list[entry_name] = {entry_data[0]: [entry_data[1]]}
                 
         return auth_ext_list
             
@@ -142,10 +154,9 @@ class X509CertificateHelper:
     def _parse_crl_distribution_points(self, crl_ext):
 
         # Hazardous attempt at parsing a CRL Distribution Point extension
-        crl_ext = crl_ext.strip(' \n')
-        crl_ext = crl_ext.split('\n')
+        crl_ext = crl_ext.strip(' \n').split('\n')
         subcrl = {}
-        
+
         for distrib_point in crl_ext:
             distrib_point = distrib_point.strip()
             distrib_point = distrib_point.split(':', 1)
@@ -173,7 +184,7 @@ class X509CertificateHelper:
             # Overwrite the data we have if we know how to parse it
             if ext_key in parsing_functions.keys():
                 ext_dict[ext_key] = parsing_functions[ext_key](ext_val)
-        
+
         return ext_dict
         
 
@@ -195,48 +206,69 @@ class PluginCertInfo(PluginBase.PluginBase):
     def process_task(self, target, command, arg):
 
         ctSSL_initialize()
-        cert_trusted = False
-
-        try: # First verify the server's certificate
-            cert = self._get_cert(target, verify_cert=True)
-            cert_trusted = True
-
-        except errors.SSLErrorSSL as e:
-            # Recover the server's certificate without verifying it
-            if 'certificate verify failed' in str(e.args):
-                cert = self._get_cert(target, verify_cert=False)
-            else:
-                ctSSL_cleanup()
-                raise
-            
-        result_dict = {'basic':     self._get_basic, 
-                       'full':      self._get_full}
-
-        (cert_txt, cert_xml) = result_dict[arg](cert)
+        try: # Get the certificate
+             (cert, verify_result) = self._get_cert(target)
+        except:
+            ctSSL_cleanup()
+            raise
         
+        # Figure out if/why the verification failed
+        untrusted_reason = None
+        is_cert_trusted = True
+        if verify_result != 0:
+            is_cert_trusted = False
+            untrusted_reason = X509_V_CODES.X509_V_CODES[verify_result]
+         
+        # Results formatting
+        cert_parsed = X509CertificateHelper(cert)
+        cert_dict = cert_parsed.parse_certificate()
         
         # Text output
+        if arg == 'basic':
+            cert_txt = self._get_basic_text(cert, cert_dict)
+        elif arg == 'full':
+            cert_txt = [cert.as_text()]
+        else:
+            raise Exception("PluginCertInfo: Unknown command.")
+            
         fingerprint = cert.get_fingerprint()
         cmd_title = 'Certificate'
         txt_result = [self.PLUGIN_TITLE_FORMAT.format(cmd_title)]
-        trust_txt = 'Certificate is Trusted' if cert_trusted \
+        trust_txt = 'Certificate is Trusted' if is_cert_trusted \
                                              else 'Certificate is NOT Trusted'
-        is_ev = self._is_ev_certificate(cert)
+
+        is_ev = self._is_ev_certificate(cert_dict)
         if is_ev:
             trust_txt = trust_txt + ' - Extended Validation'
+            
+        if untrusted_reason:
+            trust_txt = trust_txt + ': ' + untrusted_reason
 
         txt_result.append(self.FIELD_FORMAT.format("Validation w/ Mozilla's CA Store:", trust_txt))
+        
+        is_host_valid = self._is_hostname_valid(cert_dict, target)
+        host_txt = 'OK - ' + is_host_valid + ' Matches' if is_host_valid \
+                                         else 'MISMATCH'
+        
+        txt_result.append(self.FIELD_FORMAT.format("Hostname Validation:", host_txt))
         txt_result.append(self.FIELD_FORMAT.format('SHA1 Fingerprint:', fingerprint))
+        txt_result.append('')
         txt_result.extend(cert_txt)
 
-        # XML output
-        xml_result = Element(self.__class__.__name__, command = command, 
-                             argument = arg, title = cmd_title)
-        trust_xml_attr = {'isTrustedByMozilla' : str(cert_trusted),
+        # XML output: always return the full certificate
+        host_xml = True if is_host_valid \
+                        else False
+            
+        xml_result = Element(command, argument = arg, title = cmd_title)
+        trust_xml_attr = {'isTrustedByMozillaCAStore' : str(is_cert_trusted),
                           'sha1Fingerprint' : fingerprint,
-                          'isExtendedValidation' : str(is_ev)}
+                          'isExtendedValidation' : str(is_ev),
+                          'hasMatchingHostname' : str(host_xml)}
+        if untrusted_reason:
+            trust_xml_attr['reasonWhyNotTrusted'] = untrusted_reason
+            
         trust_xml = Element('certificate', attrib = trust_xml_attr)
-        for elem_xml in cert_xml:
+        for elem_xml in cert_parsed.parse_certificate_to_xml():
             trust_xml.append(elem_xml)
         xml_result.append(trust_xml)
         
@@ -246,9 +278,27 @@ class PluginCertInfo(PluginBase.PluginBase):
 
 # FORMATTING FUNCTIONS
 
-    def _is_ev_certificate(self,cert):
-        cert_parsed =  X509CertificateHelper(cert)
-        cert_dict = cert_parsed.parse_certificate()
+    def _is_hostname_valid(self, cert_dict, target):
+        (host, ip, port) = target
+        
+        # Let's try the common name first
+        commonName = cert_dict['subject']['commonName'][0]
+        if _dnsname_to_pat(commonName).match(host):
+            return 'Common Name'
+        
+        try: # No luch, let's look at Subject Alternative Names
+            alt_names = cert_dict['extensions']['X509v3 Subject Alternative Name']['DNS']
+        except KeyError:
+            return False
+        
+        for altname in alt_names:
+            if _dnsname_to_pat(altname).match(host):
+                return 'Subject Alternative Name'       
+        
+        return False
+        
+
+    def _is_ev_certificate(self, cert_dict):
         try:
             policy = cert_dict['extensions']['X509v3 Certificate Policies']['Policy']
             if policy[0] in mozilla_EV_OIDs:
@@ -258,11 +308,7 @@ class PluginCertInfo(PluginBase.PluginBase):
         return False
         
     
-    def _get_basic(self, cert):
-        cert_parsed =  X509CertificateHelper(cert)
-        cert_dict = cert_parsed.parse_certificate()
-        cert_xml = cert_parsed.parse_certificate_to_xml()
-        
+    def _get_basic_text(self, cert,  cert_dict):      
         basic_txt = [ \
         self.FIELD_FORMAT.format("Common Name:", cert_dict['subject']['commonName'][0] ),
         self.FIELD_FORMAT.format("Issuer:", cert.get_issuer_name().get_as_text()),
@@ -278,12 +324,7 @@ class PluginCertInfo(PluginBase.PluginBase):
         except KeyError:
             pass
         
-        return (basic_txt, cert_xml)
-    
-
-    def _get_full(self, cert):
-        cert_xml = X509CertificateHelper(cert).parse_certificate_to_xml()  
-        return ([cert.as_text()], cert_xml)
+        return basic_txt
 
 
     def _get_fingerprint(self, cert):
@@ -293,22 +334,41 @@ class PluginCertInfo(PluginBase.PluginBase):
         val_xml.text = nb
         return ([val_txt], [val_xml])    
 
-        
-    def _get_cert(self, target, verify_cert=False):
+
+    def _get_cert(self, target):
         """
-        Connects to the target server and returns the server's certificate if
-        the connection was successful.
+        Connects to the target server and returns the server's certificate
         """
-        ssl_connect = self._create_ssl_connection(target)
-        ssl_connect.ssl_ctx.set_cipher_list(self.hello_workaround_cipher_list)
-        if verify_cert:
-            ssl_connect.ssl_ctx.load_verify_locations(TRUSTED_CA_STORE)
-            ssl_connect.ssl.set_verify(constants.SSL_VERIFY_PEER)
+        verify_result = None
+        ssl_ctx = SSL_CTX.SSL_CTX('tlsv1') # sslv23 hello will fail for specific servers such as post.craigslist.org
+        ssl_ctx.set_cipher_list(self.hello_workaround_cipher_list)
+        ssl_ctx.load_verify_locations(TRUSTED_CA_STORE)
+        ssl_ctx.set_verify(constants.SSL_VERIFY_NONE) # We'll use get_verify_result()
+        ssl_connect = self._create_ssl_connection(target, ssl_ctx=ssl_ctx)
 
         try: # Perform the SSL handshake
             ssl_connect.connect()
             cert = ssl_connect.ssl.get_peer_certificate()
+            verify_result = ssl_connect.ssl.get_verify_result()
         finally:
             ssl_connect.close()
 
-        return cert
+        return (cert, verify_result)
+
+
+def _dnsname_to_pat(dn):
+    """
+    Generates a regexp for the given name, to be used for hostname validation
+    Taken from http://pypi.python.org/pypi/backports.ssl_match_hostname/3.2a3
+    """
+    pats = []
+    for frag in dn.split(r'.'):
+        if frag == '*':
+            # When '*' is a fragment by itself, it matches a non-empty dotless
+            # fragment.
+            pats.append('[^.]+')
+        else:
+            # Otherwise, '*' matches any dotless fragment.
+            frag = re.escape(frag)
+            pats.append(frag.replace(r'\*', '[^.]*'))
+    return re.compile(r'\A' + r'\.'.join(pats) + r'\Z', re.IGNORECASE)
