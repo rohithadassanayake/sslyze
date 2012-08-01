@@ -65,8 +65,7 @@ class PluginSessionRenegotiation(PluginBase.PluginBase):
                           'isSecure' : str(is_secure)}
         xml_reneg = Element('sessionRenegotiation', attrib = xml_reneg_attr)
         
-        xml_result = Element(self.__class__.__name__, command = command,
-                             title = cmd_title)
+        xml_result = Element(command, title = cmd_title)
         xml_result.append(xml_reneg)
         
         return PluginBase.PluginResult(txt_result, xml_result)
@@ -77,7 +76,7 @@ class PluginSessionRenegotiation(PluginBase.PluginBase):
         Checks whether the server honors session renegotiation requests and 
         whether it supports secure renegotiation.
         """
-        ssl_ctx = SSL_CTX.SSL_CTX()
+        ssl_ctx = SSL_CTX.SSL_CTX('tlsv1') # sslv23 hello will fail for specific servers such as post.craigslist.org
         ssl_ctx.set_verify(constants.SSL_VERIFY_NONE)
         ssl_ctx.set_cipher_list(self.hello_workaround_cipher_list)
         ssl_connect = \

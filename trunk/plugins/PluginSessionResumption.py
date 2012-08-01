@@ -75,7 +75,7 @@ class PluginSessionResumption(PluginBase.PluginBase):
         thread_pool = ThreadPool()
         for i in xrange(MAX_RESUM):
             thread_pool.add_job((self._resume_with_session_id, 
-                                 (target, ('tlsv1'))))
+                                 (target, )))
         thread_pool.start(NB_THREADS)
 
         # Count successful resumptions      
@@ -95,8 +95,7 @@ class PluginSessionResumption(PluginBase.PluginBase):
                           'failedAttempts' : str(nb_failed), 'errors' : str(nb_error)}
         
         xml_resum = Element('sessionResumptionWithSessionIDs', attrib = xml_resum_attr)  
-        xml_result = Element(self.__class__.__name__, command = 'resum_rate',
-                             title = cmd_title)
+        xml_result = Element('resum_rate', title = cmd_title)
         xml_result.append(xml_resum)
 
         thread_pool.join()
@@ -114,7 +113,7 @@ class PluginSessionResumption(PluginBase.PluginBase):
         
         for i in xrange(MAX_RESUM): # Test 5 resumptions with session IDs
             thread_pool.add_job((self._resume_with_session_id,
-                                 (target,('tlsv1')), 'session_id'))
+                                 (target,), 'session_id'))
         thread_pool.start(NB_THREADS)
         
         # Test TLS tickets support while threads are running
@@ -174,7 +173,7 @@ class PluginSessionResumption(PluginBase.PluginBase):
                 xml_resum_ticket_attr['reason'] = ticket_reason
         
         xml_resum_ticket = Element('sessionResumptionWithTLSTickets', attrib = xml_resum_ticket_attr)   
-        xml_result = Element(self.__class__.__name__, command='resum', title=cmd_title)
+        xml_result = Element('resum', title=cmd_title)
         xml_result.append(xml_resum_id)
         xml_result.append(xml_resum_ticket)
 
@@ -204,11 +203,11 @@ class PluginSessionResumption(PluginBase.PluginBase):
         return (nb_resum, nb_error)
 
 
-    def _resume_with_session_id(self, target, ssl_version):
+    def _resume_with_session_id(self, target):
         """
         Performs one session resumption using Session IDs.
         """
-        ctx = SSL_CTX.SSL_CTX(ssl_version)
+        ctx = SSL_CTX.SSL_CTX('tlsv1')
         ctx.set_verify(constants.SSL_VERIFY_NONE)
         ctx.set_cipher_list(self.hello_workaround_cipher_list)
 
