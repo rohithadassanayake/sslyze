@@ -29,8 +29,9 @@ import re
 from xml.etree.ElementTree import Element
 
 from plugins import PluginBase
-from utils.ctSSL import ctSSL_initialize, ctSSL_cleanup, constants, errors, \
+from utils.ctSSL import ctSSL_initialize, ctSSL_cleanup, constants, \
     X509_V_CODES, SSL_CTX
+from utils.SSLyzeSSLConnection import SSLyzeSSLConnection
 
 TRUSTED_CA_STORE = os.path.join(sys.path[0], 'mozilla_cacert.pem')
 from mozilla_ev_oids import mozilla_EV_OIDs
@@ -130,10 +131,9 @@ class X509CertificateHelper:
     
     def _parse_authority_information_access(self, auth_ext):
         # Hazardous attempt at parsing an Authority Information Access extension
+        auth_ext = auth_ext.strip(' \n').split('\n')
         auth_ext_list = {}
-        auth_ext = auth_ext.strip(' \n')
-        auth_ext = auth_ext.split('\n')
- 
+         
         for auth_entry in auth_ext:
             auth_entry_res = []
             auth_entry = auth_entry.split(' - ')
@@ -152,7 +152,6 @@ class X509CertificateHelper:
             
               
     def _parse_crl_distribution_points(self, crl_ext):
-
         # Hazardous attempt at parsing a CRL Distribution Point extension
         crl_ext = crl_ext.strip(' \n').split('\n')
         subcrl = {}
@@ -178,7 +177,8 @@ class X509CertificateHelper:
                              'Authority Information Access': self._parse_authority_information_access,
                              'X509v3 Key Usage': self._parse_multi_valued_extension,
                              'X509v3 Extended Key Usage': self._parse_multi_valued_extension,
-                             'X509v3 Certificate Policies' : self._parse_crl_distribution_points}
+                             'X509v3 Certificate Policies' : self._parse_crl_distribution_points,
+                             'X509v3 Issuer Alternative Name' : self._parse_crl_distribution_points}
         
         for (ext_key, ext_val) in ext_dict.items():
             # Overwrite the data we have if we know how to parse it
@@ -341,15 +341,15 @@ class PluginCertInfo(PluginBase.PluginBase):
         """
         verify_result = None
         ssl_ctx = SSL_CTX.SSL_CTX('tlsv1') # sslv23 hello will fail for specific servers such as post.craigslist.org
-        ssl_ctx.set_cipher_list(self.hello_workaround_cipher_list)
         ssl_ctx.load_verify_locations(TRUSTED_CA_STORE)
         ssl_ctx.set_verify(constants.SSL_VERIFY_NONE) # We'll use get_verify_result()
-        ssl_connect = self._create_ssl_connection(target, ssl_ctx=ssl_ctx)
+        ssl_connect = SSLyzeSSLConnection(self._shared_settings, target,ssl_ctx,
+                                          hello_workaround=True)
 
         try: # Perform the SSL handshake
             ssl_connect.connect()
-            cert = ssl_connect.ssl.get_peer_certificate()
-            verify_result = ssl_connect.ssl.get_verify_result()
+            cert = ssl_connect._ssl.get_peer_certificate()
+            verify_result = ssl_connect._ssl.get_verify_result()
         finally:
             ssl_connect.close()
 
