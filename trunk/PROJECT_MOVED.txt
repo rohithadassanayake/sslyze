@@ -1,0 +1,3 @@
+The Google code repository for SSLyze will no longer be updated...
+Revert to the previous commit or switch to Github to get updates:
+https://github.com/iSECPartners/sslyze/
