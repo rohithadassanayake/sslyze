@@ -23,7 +23,6 @@
 
 from time import time
 from multiprocessing import Process, JoinableQueue
-import sys
 from xml.etree.ElementTree import ElementTree, Element, tostring
 from xml.dom import minidom
 
@@ -34,7 +33,7 @@ from utils.parse_command_line import create_command_line_parser, \
 
 
 
-SSLYZE_VERSION =      'SSLyze v0.5 beta'
+SSLYZE_VERSION =      'SSLyze v0.5'
 DEFAULT_NB_PROCESSES =      5 # 10 was too aggressive, lowering it to 5
 PLUGIN_PATH =       "plugins"
 DEFAULT_TIMEOUT =   5
@@ -243,9 +242,9 @@ def main():
         xml_final_doc.append(result_xml)
 
         # Hack: Prettify the XML file so it's (somewhat) diff-able
-        xml_final_pretty = minidom.parseString(tostring(xml_final_doc, 'utf-8'))
+        xml_final_pretty = minidom.parseString(tostring(xml_final_doc, encoding='UTF-8'))
         with open(shared_settings['xml_file'],'w') as xml_file:
-            xml_file.write(xml_final_pretty.toprettyxml(indent="  "))
+            xml_file.write(xml_final_pretty.toprettyxml(indent="  ", encoding="utf-8" ))
             
 
     print _format_title('Scan Completed in {0:.2f} s'.format(exec_time))

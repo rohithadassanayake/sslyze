@@ -72,19 +72,14 @@ def create_command_line_parser(available_plugins, prog_version, timeout):
     # XML output
     parser.add_option(
         '--xml_out',
-        help= (
-            'Output the scan results to an XML file. '
-            'XML_FILE should be the name of the file to write to.'),
+        help= ('Writes the scan results as an XML document to the file XML_FILE.'),
         dest='xml_file',
         default=None)
 
     # Read targets from input file
     parser.add_option(
         '--targets_in',
-        help= (
-            'Read targets from a text file. '
-            'TARGETS_IN should be the name of the file containing the list of '
-            'targets - one target per line.'),
+        help= ('Reads the list of targets to scan from the file TARGETS_IN. It should contain one host:port per line.'),
         dest='targets_in',
         default=None)
 
@@ -166,12 +161,16 @@ def create_command_line_parser(available_plugins, prog_version, timeout):
         and parser.has_option('--tlsv1') and parser.has_option('--reneg') \
         and parser.has_option('--resum') and parser.has_option('--certinfo') \
         and parser.has_option('--http_get') \
-        and parser.has_option('--hide_rejected_ciphers'):
+        and parser.has_option('--hide_rejected_ciphers') \
+        and parser.has_option('--compression') \
+        and parser.has_option('--tlsv1_1') \
+        and parser.has_option('--tlsv1_2'):
             parser.add_option(
                 '--regular',
                 action="store_true",
                 help=(
-                    'Regular HTTP scan. Shortcut for --sslv2 --sslv3 --tlsv1 '
+                    'Regular HTTPS scan. Shortcut for --sslv2 --sslv3 --tlsv1 '
+                    '--tlsv1_2 --tlsv1_2 --compression'
                     '--reneg --resum --certinfo=basic --http_get '
                     '--hide_rejected_ciphers'),
                 dest=None)
@@ -209,11 +208,14 @@ def parse_command_line(parser):
             setattr(args_command_list, 'sslv2', True)
             setattr(args_command_list, 'sslv3', True)
             setattr(args_command_list, 'tlsv1', True)
+            setattr(args_command_list, 'tlsv1_1', True)
+            setattr(args_command_list, 'tlsv1_2', True)
             setattr(args_command_list, 'reneg', True)
             setattr(args_command_list, 'resum', True)
             setattr(args_command_list, 'certinfo', 'basic')
             setattr(args_command_list, 'hide_rejected_ciphers', True)
             setattr(args_command_list, 'http_get', True)
+            setattr(args_command_list, 'compression', True)
             
     return (args_command_list, args_target_list)
 
