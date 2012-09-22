@@ -375,6 +375,25 @@ class SSL:
                                ssl_session.get_ssl_session_struct_p())
 
 
+    def get_current_compression(self):
+        """
+        H4ck to figure out whether the current connection is using compression.
+        TODO: Cleaner API. 
+        """
+        if features_not_available.ZLIB_NOT_AVAIL:
+            raise errors.ctSSLFeatureNotAvailable(
+                'ctSSL was not initialized with Zlib compression support. See ctSSL_initialize().')
+            
+        session_txt = self.get_session().as_text()
+        for l in session_txt.split('\n'):
+            if 'Compression' in l:
+                return l.replace('Compression: 1 ', '').strip()
+        return False
+        
+        # This is the easier way to do if, if we have the function
+        #ssl_session_p = libssl.SSL_get1_session(self._ssl_struct_p)
+        #return libssl.SSL_SESSION_get_compress_id(ssl_session_p)
+                               
     def get_current_cipher(self):
         """
         Return the name of the cipher currently in use.

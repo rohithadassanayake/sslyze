@@ -77,11 +77,15 @@ class X509CertificateHelper:
 
 
     def _create_xml_node(self, key, value=''):
-        key = key.replace(' ', '').strip()
-        if key[0].isdigit(): # Would generate invalid XML
-                key = 'oid-' + key # Tags cannot start with a digit
+        key = key.replace(' ', '').strip() # Remove spaces
+        key = key.replace('/', '').strip() # Remove slashes (S/MIME Capabilities)
+        
+         # Things that would generate invalid XML
+        if key[0].isdigit(): # Tags cannot start with a digit
+                key = 'oid-' + key 
+                
         xml_node = Element(key)
-        xml_node.text = value.strip()
+        xml_node.text = value.decode( "utf-8" ).strip()
         return xml_node
     
     
@@ -193,12 +197,12 @@ class PluginCertInfo(PluginBase.PluginBase):
     available_commands = PluginBase.AvailableCommands(
         title="PluginCertInfo",
         description=(
-            "Verifies the target server's certificate validity against "
-            "Mozilla's trusted root store, and prints relevant fields of "
-            "the certificate."))
+            ""))
     available_commands.add_command(
         command="certinfo",
-        help="Should be 'basic' or 'full'",
+        help= "Verifies the target server's certificate validity against "
+            "Mozilla's trusted root store, and prints relevant fields of "
+            "the certificate. CERTINFO should be 'basic' or 'full'.",
         dest="certinfo")
 
     FIELD_FORMAT = '      {0:<35}{1:<35}'
